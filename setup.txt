@@ -6,7 +6,13 @@ mv mysql-8.4.7-linux-glibc2.28-x86_64 mysql-8.4.7
 #install prereq
 sudo pacman -S ncurses
 sudo ln -s /usr/lib/libncursesw.so.6.5 /usr/lib/libncurses.so.6
+sudo pacman -S numactl
+sudo pacman -S libaio
 
 #test
 $MSQL_DB1_HOME/bin/mysql --help
+$MSQL_DB1_HOME/bin/mysqld --help
 
+#first run 
+$MSQL_DB1_HOME/bin/mysqld --initialize --datadir=/home/daddy/apps/mysql/db1/data
+$MSQL_DB2_HOME/bin/mysqld --initialize --datadir=/home/daddy/apps/mysql/db2/data

@@ -43,3 +43,23 @@ FLUSH PRIVILEGES;
 #test creation
 SHOW VARIABLES LIKE 'log_bin';
 SHOW BINARY LOG STATUS;
+#note the values so for example this will be entered in db1, after finding for db2
+CHANGE REPLICATION SOURCE TO SOURCE_HOST = 'db2.han.gg', SOURCE_PORT = 3307, SOURCE_USER = 'replicator', SOURCE_PASSWORD = 'replicationftw', SOURCE_LOG_FILE = 'mysql-bin.000002', SOURCE_LOG_POS = 158, SOURCE_SSL = 1, SOURCE_SSL_CA = '/home/daddy/apps/lab_infra/ssl/certs/ca.pem', SOURCE_SSL_CERT = '/home/daddy/apps/lab_infra/ssl/certs/han.gg.crt', SOURCE_SSL_KEY = '/home/daddy/apps/lab_infra/ssl/certs/han.gg.key';
+
+CHANGE REPLICATION SOURCE TO SOURCE_HOST = 'db1.han.gg', SOURCE_PORT = 3306, SOURCE_USER = 'replicator', SOURCE_PASSWORD = 'replicationftw', SOURCE_LOG_FILE = 'mysql-bin.000002', SOURCE_LOG_POS = 158, SOURCE_SSL = 1, SOURCE_SSL_CA = '/home/daddy/apps/lab_infra/ssl/certs/ca.pem', SOURCE_SSL_CERT = '/home/daddy/apps/lab_infra/ssl/certs/han.gg.crt', SOURCE_SSL_KEY = '/home/daddy/apps/lab_infra/ssl/certs/han.gg.key';
+
+START REPLICA; 
+
+SHOW REPLICA STATUS\G;
+
+#TEST IT 
+
+CREATE DATABSE dev_env; 
+
+USE dev_env;
+
+CREATE TABLE PERSON (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    nric VARCHAR(255)
+);

@@ -35,3 +35,11 @@ exit;
 #kill the process with skip-grant-tables 
 startdb1
 MSQL_DB1_HOME/bin/mysql --defaults-file=$MSQL_DB1_HOME/config/my.cnf -u root -p
+
+#set up replication in cluster (do for both servers)
+CREATE USER 'replicator'@'%' IDENTIFIED BY 'password';
+GRANT REPLICATION SLAVE ON *.* TO 'replicator'@'%';
+FLUSH PRIVILEGES;
+#test creation
+SHOW VARIABLES LIKE 'log_bin';
+SHOW BINARY LOG STATUS;
